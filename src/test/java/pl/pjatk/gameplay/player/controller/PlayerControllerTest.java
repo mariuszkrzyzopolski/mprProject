@@ -39,6 +39,6 @@ public class PlayerControllerTest {
         mockMvc.perform(get("/player/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("test")));
+                .andExpect(content().string(equalTo("{\"id\":1,\"nickname\":\"ss\",\"attack\":10,\"health\":10,\"mana\":10}")));
     }
 }
