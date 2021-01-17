@@ -15,7 +15,7 @@
 	<description>Simple game for PJATK</description>
 
 	<properties>
-		<java.version>15</java.version>
+		<java.version>11</java.version>
 	</properties>
 
 	<dependencies>
@@ -86,18 +86,12 @@
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
-				<version>{version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<appName>heroku-demo-stackabuse</appName>
-					<includeTarget>false</includeTarget>
-					<includes>
-						<include>${project.build.directory}/${project.build.finalName}.jar</include>
-					</includes>
-					<jdkVersion>11</jdkVersion>
-					<processTypes>
-						<web>java $JAVA_OPTS -jar
-							${project.build.directory}/${project.build.finalName}.jar</web>
-					</processTypes>
+					<release>11</release>
 				</configuration>
 			</plugin>
 		</plugins>
