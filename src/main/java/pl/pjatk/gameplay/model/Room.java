@@ -6,11 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@TableGenerator(name = "tab")
 @Table(name = "Room")
 public class Room {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE,generator = "tab")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 

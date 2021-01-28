@@ -41,13 +41,19 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable long id){
+    public ResponseEntity<Void> delete(@PathVariable long id) {
         playerService.delete(id);
         return ResponseEntity.ok().build();
     }
 
-//    @PutMapping("/{id_obr}/{id_atk}")
-//    public ResponseEntity<Optional<Player>> attack(@PathVariable long id_obr, @PathVariable long id_atk) {
-//        return ResponseEntity.ok(damageService.attack(id_obr, id_atk));
-//    }
+    @PutMapping("/{id}/damage/{damage}")
+    public ResponseEntity<Player> damage(@PathVariable long id, @PathVariable int damage){
+        Optional<Player> byId = playerService.findById(id);
+        if (byId.isPresent()) {
+            Player existingPlayer = byId.get();
+            return ResponseEntity.ok(playerService.save(damageService.damagePlayer(existingPlayer,damage)));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

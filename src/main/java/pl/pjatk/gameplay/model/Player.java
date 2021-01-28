@@ -3,12 +3,11 @@ package pl.pjatk.gameplay.model;
 import javax.persistence.*;
 
 @Entity
-@TableGenerator(name = "tab")
 @Table(name = "player")
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE,generator = "tab")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "nickname")

@@ -61,20 +61,20 @@ public class PlayerServiceTestIntegr {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> playerService.findById(10L));
     }
 
-    @Test
-    void shouldAttack(){
-        Player def = new Player("ss",1L,10,100,10);
-        Player att = new Player("ss",2L,20,100,10);
-        playerService.save(def);
-        playerService.save(att);
-
-        playerService.attack(att.getId(),def.getId());
-
-        Optional<Player> player = playerService.findById(2L);
-        assertThat(player).isNotEmpty();
-//        assertThat(player.getHealth()).isEqualTo(70);
-
-    }
+//    @Test
+//    void shouldAttack(){
+//        Player def = new Player("ss",1L,10,100,10);
+//        Player att = new Player("ss",2L,20,100,10);
+//        playerService.save(def);
+//        playerService.save(att);
+//
+//        playerService.attack(att.getId(),def.getId());
+//
+//        Optional<Player> player = playerService.findById(2L);
+//        assertThat(player).isNotEmpty();
+////        assertThat(player.getHealth()).isEqualTo(70);
+//
+//    }
 
 
 }

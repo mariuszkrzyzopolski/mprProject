@@ -2,15 +2,11 @@ package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
 import pl.pjatk.gameplay.model.Player;
-import pl.pjatk.gameplay.repository.PlayerRepository;
 
 import java.util.Optional;
 
 @Service
 public class DamageService {
-
-//    private PlayerRepository playerRepository;
-
 //    public DamageService(PlayerRepository playerRepository) {
 //        this.playerRepository = playerRepository;
 //    }
@@ -24,11 +20,9 @@ public class DamageService {
 //        }
 //        return playerRepository.findById(id_obr);
 //    }
-    public Player attack(Player attacker, Player defender) {
-        defender.setHealth(
-            defender.getHealth() - attacker.getAttack()
-        );
-        return defender;
+    public Player damagePlayer(Player p, int damage) {
+        p.setHealth(p.getHealth() - damage);
+        return p;
     }
 
     public int buff(Player p){
