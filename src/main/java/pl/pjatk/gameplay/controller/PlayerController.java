@@ -50,8 +50,7 @@ public class PlayerController {
     public ResponseEntity<Player> damage(@PathVariable long id, @PathVariable int damage){
         Optional<Player> byId = playerService.findById(id);
         if (byId.isPresent()) {
-            Player existingPlayer = byId.get();
-            return ResponseEntity.ok(playerService.save(damageService.damagePlayer(existingPlayer,damage)));
+            return ResponseEntity.ok(playerService.save(damageService.damagePlayer(byId.get(),damage)));
         } else {
             return ResponseEntity.notFound().build();
         }
