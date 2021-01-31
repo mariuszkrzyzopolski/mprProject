@@ -1,5 +1,6 @@
 package pl.pjatk.gameplay.controller;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class PlayerController {
         if (byId.isPresent()) {
             return ResponseEntity.ok(byId);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
     }
 
@@ -52,7 +53,7 @@ public class PlayerController {
         if (byId.isPresent()) {
             return ResponseEntity.ok(playerService.save(damageService.damagePlayer(byId.get(),damage)));
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
     }
 }

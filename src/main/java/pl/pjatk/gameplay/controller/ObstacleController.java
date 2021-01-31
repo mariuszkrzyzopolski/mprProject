@@ -8,6 +8,7 @@ import pl.pjatk.gameplay.service.DamageService;
 import pl.pjatk.gameplay.service.ObstacleService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -32,7 +33,7 @@ public class ObstacleController {
         if (byId.isPresent()) {
             return ResponseEntity.ok(byId);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
     }
 
@@ -53,7 +54,7 @@ public class ObstacleController {
         if (byId.isPresent()) {
             return ResponseEntity.ok(obstacleService.save(damageService.damageObstacle(byId.get(),damage)));
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
     }
 }

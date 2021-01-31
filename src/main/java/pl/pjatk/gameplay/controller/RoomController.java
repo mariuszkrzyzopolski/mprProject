@@ -7,6 +7,7 @@ import pl.pjatk.gameplay.model.Room;
 import pl.pjatk.gameplay.service.RoomService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -29,7 +30,7 @@ public class RoomController {
         if (byId.isPresent()) {
             return ResponseEntity.ok(byId);
         } else {
-            return ResponseEntity.notFound().build();
+            throw new NoSuchElementException();
         }
     }
 
