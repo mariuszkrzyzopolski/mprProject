@@ -23,6 +23,10 @@ public class ObstacleService {
         return obstacleRepository.findById(id);
     }
 
+    public void delete(Long id) {
+        obstacleRepository.deleteById(id);
+    }
+
     public Obstacle save(Obstacle room) {
         return obstacleRepository.save(room);
     }

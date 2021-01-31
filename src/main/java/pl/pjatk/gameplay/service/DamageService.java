@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.model.Obstacle;
 import pl.pjatk.gameplay.model.Player;
 
 import java.util.Optional;
@@ -23,6 +24,11 @@ public class DamageService {
     public Player damagePlayer(Player p, int damage) {
         p.setHealth(p.getHealth() - damage);
         return p;
+    }
+
+    public Obstacle damageObstacle(Obstacle o, int damage){
+        o.setCondition(o.getCondition()-damage);
+        return o;
     }
 
     public int buff(Player p){
