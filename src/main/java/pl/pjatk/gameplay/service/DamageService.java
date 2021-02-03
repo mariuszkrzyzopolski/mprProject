@@ -4,23 +4,9 @@ import org.springframework.stereotype.Service;
 import pl.pjatk.gameplay.model.Obstacle;
 import pl.pjatk.gameplay.model.Player;
 
-import java.util.Optional;
 
 @Service
 public class DamageService {
-//    public DamageService(PlayerRepository playerRepository) {
-//        this.playerRepository = playerRepository;
-//    }
-//
-//    public Optional<Player> attack (long id_obr, long id_atk){
-//        playerRepository.findById(id_atk);
-//        playerRepository.findById(id_obr);
-//
-//        if (playerRepository.findById(id_atk).isPresent() && playerRepository.findById(id_obr).isPresent()) {
-//            playerRepository.findById(id_obr).get().setHealth(playerRepository.findById(id_obr).get().getHealth() - playerRepository.findById(id_atk).get().getAttack());
-//        }
-//        return playerRepository.findById(id_obr);
-//    }
     public Player damagePlayer(Player p, int damage) {
         p.setHealth(p.getHealth() - damage);
         return p;
