@@ -16,6 +16,8 @@ public class Item {
     private String statname;
     @Column(name = "statvalue")
     private int statvalue;
+    @Column(name="aditionalEfect")
+    private String aditionalEfect;
     @Column(name = "uses")
     private int uses;
 
@@ -59,12 +61,21 @@ public class Item {
         this.uses = uses;
     }
 
-    public Item(Long id, String name, String statname, int statvalue, int uses) {
+    public String getAditionalEfect() {
+        return aditionalEfect;
+    }
+
+    public void setAditionalEfect(String aditionalEfect) {
+        this.aditionalEfect = aditionalEfect;
+    }
+
+    public Item(Long id, String name, String statname, int statvalue, int uses, String aditionalEfect) {
         this.id = id;
         this.name = name;
         this.statname = statname;
         this.statvalue = statvalue;
         this.uses = uses;
+        this.aditionalEfect = aditionalEfect;
     }
 
     public Item(){

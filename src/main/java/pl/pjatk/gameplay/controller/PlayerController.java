@@ -27,13 +27,8 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Player>> findById(@PathVariable long id) {
-        Optional<Player> byId = playerService.findById(id);
-        if (byId.isPresent()) {
-            return ResponseEntity.ok(byId);
-        } else {
-            throw new NoSuchElementException();
-        }
+    public ResponseEntity<Player> findById(@PathVariable long id) {
+        return ResponseEntity.ok(findPlayer(id));
     }
 
     @PostMapping
@@ -49,15 +44,15 @@ public class PlayerController {
 
     @PutMapping("/{id}/damage/{damage}")
     public ResponseEntity<Player> damage(@PathVariable long id, @PathVariable int damage){
-        return ResponseEntity.ok(playerService.save(damageService.damagePlayer(changePlayerAtt(id),damage)));
+        return ResponseEntity.ok(playerService.save(damageService.damagePlayer(findPlayer(id),damage)));
     }
 
     @PutMapping("/{id}/poison")
     public ResponseEntity<Player> poison(@PathVariable long id){
-        return ResponseEntity.ok(playerService.save(damageService.poison(changePlayerAtt(id))));
+        return ResponseEntity.ok(playerService.save(damageService.poison(findPlayer(id))));
     }
 
-    private Player changePlayerAtt(long id){
+    private Player findPlayer(long id){
         Optional<Player> byId = playerService.findById(id);
         if (byId.isPresent()) {
             return byId.get();
