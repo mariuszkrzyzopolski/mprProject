@@ -8,7 +8,6 @@ import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.PlayerService;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -60,21 +59,4 @@ public class PlayerServiceTestIntegr {
         playerService.save(player);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> playerService.findById(10L));
     }
-
-//    @Test
-//    void shouldAttack(){
-//        Player def = new Player("ss",1L,10,100,10);
-//        Player att = new Player("ss",2L,20,100,10);
-//        playerService.save(def);
-//        playerService.save(att);
-//
-//        playerService.attack(att.getId(),def.getId());
-//
-//        Optional<Player> player = playerService.findById(2L);
-//        assertThat(player).isNotEmpty();
-////        assertThat(player.getHealth()).isEqualTo(70);
-//
-//    }
-
-
 }

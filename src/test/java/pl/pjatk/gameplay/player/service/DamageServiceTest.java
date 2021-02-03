@@ -43,11 +43,11 @@ public class DamageServiceTest {
     }
 
     @Test
-    void shouldDissarmPlayer(){
+    void shouldDisarmPlayer(){
         //get
         Player player = new Player("wa", (long) 1,100, 1,10);
         //when
-        damageService.dissarm(player);
+        damageService.disarm(player);
         //then
         assertThat(player.getAttack()).isZero();
     }

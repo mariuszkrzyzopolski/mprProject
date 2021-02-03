@@ -52,6 +52,21 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.save(damageService.poison(findPlayer(id))));
     }
 
+    @PutMapping("/{id}/debuff")
+    public ResponseEntity<Player> debuff(@PathVariable long id){
+        return ResponseEntity.ok(playerService.save(damageService.debuff(findPlayer(id))));
+    }
+
+    @PutMapping("/{id}/buff")
+    public ResponseEntity<Player> buff(@PathVariable long id){
+        return ResponseEntity.ok(playerService.save(damageService.buff(findPlayer(id))));
+    }
+
+    @PutMapping("/{id}/disarm")
+    public ResponseEntity<Player> disarm(@PathVariable long id){
+        return ResponseEntity.ok(playerService.save(damageService.disarm(findPlayer(id))));
+    }
+
     private Player findPlayer(long id){
         Optional<Player> byId = playerService.findById(id);
         if (byId.isPresent()) {

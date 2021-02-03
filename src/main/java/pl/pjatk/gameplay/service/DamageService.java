@@ -17,13 +17,13 @@ public class DamageService {
         return o;
     }
 
-    public int buff(Player p){
+    public Player buff(Player p){
         p.setAttack(p.getAttack() * 2);
-        return p.getAttack();
+        return p;
     }
-    public int debuff(Player p) {
+    public Player debuff(Player p) {
         p.setAttack(p.getAttack() / 2);
-        return p.getAttack();
+        return p;
     }
     public Player poison(Player p){
         if(p.getHealth() > 1){
@@ -32,8 +32,8 @@ public class DamageService {
         }
         return p;
     }
-    public int dissarm(Player p){
+    public Player disarm(Player p){
         p.setAttack(0);
-        return p.getAttack();
+        return p;
     }
 }

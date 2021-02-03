@@ -36,12 +36,4 @@ public class PlayerService {
     public Player save(Player player) {
         return playerRepository.save(player);
     }
-
-//    public Player attack(Long attackerId, Long defenderId) {
-//        Player attacker = findById(attackerId).get();
-//        Player defender = findById(defenderId).get();
-//        defender = damageService.attack(attacker, defender);
-//        playerRepository.save(defender);
-//        return defender;
-//    }
 }
