@@ -1,5 +1,6 @@
 package pl.pjatk.gameplay.service;
 
+import org.hibernate.ObjectDeletedException;
 import org.springframework.stereotype.Service;
 import pl.pjatk.gameplay.model.Obstacle;
 import pl.pjatk.gameplay.model.Player;
@@ -12,7 +13,7 @@ public class DamageService {
         return p;
     }
 
-    public Obstacle damageObstacle(Obstacle o, int damage){
+    public Obstacle damageObstacle(Obstacle o, int damage) {
         o.setCondition(o.getCondition()-damage);
         return o;
     }

@@ -1,8 +1,10 @@
 package pl.pjatk.gameplay.controller;
 
 
+import org.hibernate.ObjectDeletedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Obstacle;
 import pl.pjatk.gameplay.service.DamageService;
 import pl.pjatk.gameplay.service.ObstacleService;
@@ -52,7 +54,13 @@ public class ObstacleController {
     public ResponseEntity<Obstacle> damage(@PathVariable long id, @PathVariable int damage){
         Optional<Obstacle> byId = obstacleService.findById(id);
         if (byId.isPresent()) {
-            return ResponseEntity.ok(obstacleService.save(damageService.damageObstacle(byId.get(),damage)));
+            Obstacle obstacle = damageService.damageObstacle(byId.get(),damage);
+            if (obstacle.getCondition()<=0){
+                obstacleService.delete(id);
+                throw new CustomErrorException("Obstacle destroyed!");
+            } else {
+                return ResponseEntity.ok(obstacleService.save(obstacle));
+            }
         } else {
             throw new NoSuchElementException();
         }

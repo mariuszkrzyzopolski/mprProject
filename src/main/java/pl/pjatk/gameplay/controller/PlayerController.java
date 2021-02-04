@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.PlayerService;
 import pl.pjatk.gameplay.service.DamageService;
@@ -70,7 +71,13 @@ public class PlayerController {
     private Player findPlayer(long id){
         Optional<Player> byId = playerService.findById(id);
         if (byId.isPresent()) {
-            return byId.get();
+            if(byId.get().getHealth()<=0){
+                playerService.delete(id);
+                throw new CustomErrorException("You are dead! Game Over!");
+            }
+            else {
+                return byId.get();
+            }
         } else {
             throw new NoSuchElementException();
         }
