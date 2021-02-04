@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> notFound(NoSuchElementException e){
-        return new ResponseEntity<>("Element is no longer exist here",HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Element is no longer exist here or wasn't created",HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CustomErrorException.class)

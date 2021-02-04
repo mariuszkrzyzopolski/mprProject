@@ -31,4 +31,9 @@ public class ItemService {
     public Item save(Item item) {
         return itemRepository.save(item);
     }
+
+    public Item use(Item item){
+        item.setUses(item.getUses()-1);
+        return item;
+    }
 }
