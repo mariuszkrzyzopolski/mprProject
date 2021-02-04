@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Obstacle;
 import pl.pjatk.gameplay.repository.ObstacleRepository;
 
@@ -27,7 +28,10 @@ public class ObstacleService {
         obstacleRepository.deleteById(id);
     }
 
-    public Obstacle save(Obstacle room) {
-        return obstacleRepository.save(room);
+    public Obstacle save(Obstacle obstacle) {
+        if(obstacle.getCondition()<=0 || obstacle.getDamage()<0 || obstacle.getName().isEmpty()){
+            throw new CustomErrorException("Bad Object property");
+        }
+        return obstacleRepository.save(obstacle);
     }
 }

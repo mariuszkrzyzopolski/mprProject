@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.repository.PlayerRepository;
 
@@ -34,6 +35,9 @@ public class PlayerService {
     }
 
     public Player save(Player player) {
+        if (player.getNickname().isEmpty() || player.getHealth()<=0 || player.getAttack()<0 || player.getMana()<0){
+            throw new CustomErrorException("Bad Object property");
+        }
         return playerRepository.save(player);
     }
 }

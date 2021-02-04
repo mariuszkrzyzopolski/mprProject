@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Room;
 import pl.pjatk.gameplay.repository.RoomRepository;
 
@@ -24,6 +25,9 @@ public class RoomService {
     }
 
     public Room save(Room room) {
+        if(room.getDescription().isEmpty() || room.getListOfRooms().isEmpty() || room.getTitle().isEmpty()){
+            throw new CustomErrorException("Bad Object property");
+        }
         return roomRepository.save(room);
     }
 }

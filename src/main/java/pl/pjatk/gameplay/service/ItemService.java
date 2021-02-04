@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.service;
 
 import org.springframework.stereotype.Service;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Item;
 import pl.pjatk.gameplay.repository.ItemRepository;
 
@@ -29,6 +30,9 @@ public class ItemService {
     }
 
     public Item save(Item item) {
+        if(item.getUses()<=0 || item.getName().isEmpty() || item.getStatname().isEmpty()){
+            throw new CustomErrorException("Bad Object property");
+        }
         return itemRepository.save(item);
     }
 
