@@ -1,12 +1,17 @@
 package pl.pjatk.gameplay.controller;
 
+import java.util.AbstractMap;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Item;
+import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.ItemService;
+import pl.pjatk.gameplay.service.PlayerService;
 
 import java.util.List;
 
@@ -14,8 +19,10 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController {
     private ItemService itemService;
+    private PlayerService playerService;
 
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService,PlayerService playerService) {
+        this.playerService = playerService;
         this.itemService = itemService;
     }
 
@@ -45,11 +52,14 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Item> use(@PathVariable long id){
+    @PutMapping("/{id}/player/{playerId}")
+    public ResponseEntity<Item> use(@PathVariable long id,@PathVariable long playerId) throws NoSuchMethodException {
         Optional<Item>itemFind = itemService.findById(id);
-        if(itemFind.isPresent()){
-            itemService.save(itemService.use(itemFind.get()));
+        Optional<Player>playerFind = playerService.findById(playerId);
+        if(itemFind.isPresent() && playerFind.isPresent()){
+            AbstractMap.SimpleEntry<Item, Player> pair = itemService.use(itemFind.get(),playerFind.get());
+            itemService.save(pair.getKey());
+            playerService.save(pair.getValue());
             if(itemFind.get().getUses()<=0) {
                 itemService.delete(id);
                 throw new CustomErrorException("You run out from uses of that item! Item disappear!");

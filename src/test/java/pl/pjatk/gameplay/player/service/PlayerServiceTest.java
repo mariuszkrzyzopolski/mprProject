@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.pjatk.gameplay.model.CustomErrorException;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.repository.PlayerRepository;
 import pl.pjatk.gameplay.service.PlayerService;
@@ -12,7 +13,7 @@ import pl.pjatk.gameplay.service.PlayerService;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -41,9 +42,21 @@ public class PlayerServiceTest {
         assertThat(player).isNotEmpty();
     }
 
-//    @Test
-//    void save() {
-//        Player player = new Player();
-//        when(playerRepository.save(player));
-//    }
+    @Test
+    void save() {
+        Player player = new Player("s",1L,5,5,5);
+        when(playerRepository.save(player)).thenReturn(player);
+
+        Player savedPlayer = playerService.save(player);
+
+        assertThat(savedPlayer).isEqualTo(player);
+    }
+
+    @Test
+    void shouldNotSave() {
+        Player player = new Player("",1L,5,5,5);
+        //when(playerRepository.save(player)).thenReturn(player);
+
+        assertThatThrownBy(()-> playerService.save(player)).isInstanceOf(CustomErrorException.class);
+    }
 }

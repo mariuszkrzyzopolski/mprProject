@@ -1,6 +1,5 @@
 package pl.pjatk.gameplay.advice;
 
-import org.hibernate.ObjectDeletedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +15,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> notFound(NoSuchElementException e){
         return new ResponseEntity<>("Element is no longer exist here or wasn't created",HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoSuchMethodException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> badAttribute(NoSuchMethodException e){
+        return new ResponseEntity<>("Item have a bad attribute - cant use on that object",HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CustomErrorException.class)
