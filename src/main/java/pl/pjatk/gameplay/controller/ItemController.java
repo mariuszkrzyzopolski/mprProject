@@ -58,12 +58,12 @@ public class ItemController {
         Optional<Player>playerFind = playerService.findById(playerId);
         if(itemFind.isPresent() && playerFind.isPresent()){
             AbstractMap.SimpleEntry<Item, Player> pair = itemService.use(itemFind.get(),playerFind.get());
-            itemService.save(pair.getKey());
-            playerService.save(pair.getValue());
             if(itemFind.get().getUses()<=0) {
                 itemService.delete(id);
                 throw new CustomErrorException("You run out from uses of that item! Item disappear!");
             }else{
+                itemService.save(pair.getKey());
+                playerService.save(pair.getValue());
                 return ResponseEntity.ok(pair.getKey());
             }
         }else{
