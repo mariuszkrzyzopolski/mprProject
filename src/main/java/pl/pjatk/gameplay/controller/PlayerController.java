@@ -45,7 +45,8 @@ public class PlayerController {
 
     @PutMapping("/{id}/damage/{damage}")
     public ResponseEntity<Player> damage(@PathVariable long id, @PathVariable int damage){
-        return ResponseEntity.ok(playerService.save(damageService.damagePlayer(findPlayer(id),damage)));
+        Player damagedPlayer = damageService.damagePlayer(findPlayer(id),damage);
+        return ResponseEntity.ok(playerService.save(checkIfPlayerIsAlive(damagedPlayer, id)));
     }
 
     @PutMapping("/{id}/poison")
@@ -68,16 +69,19 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.save(damageService.disarm(findPlayer(id))));
     }
 
+    private Player checkIfPlayerIsAlive(Player player, long id){
+        if(player.getHealth()<=0){
+            playerService.delete(id);
+            throw new CustomErrorException("You are dead! Game Over!");
+        }
+        else {
+            return player;
+        }
+    }
     private Player findPlayer(long id){
         Optional<Player> byId = playerService.findById(id);
         if (byId.isPresent()) {
-            if(byId.get().getHealth()<=0){
-                playerService.delete(id);
-                throw new CustomErrorException("You are dead! Game Over!");
-            }
-            else {
-                return byId.get();
-            }
+           return checkIfPlayerIsAlive(byId.get(),id);
         } else {
             throw new NoSuchElementException();
         }
