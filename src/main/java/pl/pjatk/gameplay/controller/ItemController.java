@@ -64,7 +64,7 @@ public class ItemController {
                 itemService.delete(id);
                 throw new CustomErrorException("You run out from uses of that item! Item disappear!");
             }else{
-                return ResponseEntity.ok(itemService.save(itemFind.get()));
+                return ResponseEntity.ok(pair.getKey());
             }
         }else{
             throw new NoSuchElementException();
